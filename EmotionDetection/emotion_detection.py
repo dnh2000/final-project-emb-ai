@@ -1,11 +1,14 @@
+import json
+import requests 
+
 def emotion_detector(text_to_analyze):
-    ''' Analyzes text and detects emotion using IBM Watson Emotion Detection API 
+    ''' Analyzes response text and detects dominant emotion using IBM Watson Emotion Detection API 
     '''
     emotions = {}
-    URL: 'https://sn-watson-emotion.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/EmotionPredict'
-    Headers: {"grpc-metadata-mm-model-id": "emotion_aggregated-workflow_lang_en_stock"}
-    Input json: { "raw_document": { "text": text_to_analyze } } 
-    response = requests.post(url, json = Input, headers=header, timeout=5)
+    URL = 'https://sn-watson-emotion.labs.skills.network/v1/watson.runtime.nlp.v1/NlpService/EmotionPredict'
+    Headers = {"grpc-metadata-mm-model-id": "emotion_aggregated-workflow_lang_en_stock"}
+    Input = { "raw_document": { "text": text_to_analyze } } 
+    response = requests.post(URL, json = Input, headers=Headers, timeout=5)
     formatted_response = json.loads(response.text)
     if response.status_code == 200:
         emotions = formatted_response["emotionPredictions"][0]["emotion"]
@@ -28,5 +31,5 @@ def emotion_detector(text_to_analyze):
         'joy': joy,
         'fear': fear,
         'sadness': sadness,
-        'dominant_emotion':dominant_emotion
+        'dominant_emotion': dominant_emotion
         }
