@@ -18,7 +18,7 @@ def emotion_detector(text_to_analyze):
         fear = emotions['fear']
         sadness = emotions['sadness']
         dominant_emotion = max(emotions, key=emotions.get)
-    elif response.status_code == 500:
+    elif response.status_code == 400:
         anger = None
         disgust = None
         joy = None
